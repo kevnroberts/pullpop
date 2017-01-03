@@ -1,0 +1,14 @@
+{
+  "name": "pullpop",
+  "version": "0.0.1",
+  "description": "Creates a song out of a pull request",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kevin Roberts",
+  "license": "ISC",
+  "dependencies": {
+    "web-audio-daw": "^2.3.1"
+  }
+}
