@@ -1,0 +1,12 @@
+html {
+  font-size: 80%;
+  font-family: Verdana, sans-serif;
+}
+
+input, button {
+  font-size: 120%;
+}
+
+.sha {
+  width: 25em;
+}

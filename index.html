@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pull Pop</title>
+  <link rel="stylesheet" href="pullpop.css">
+</head>
+<body>
+  <h1>Pull Pop</h1>
+  <div class="container">
+    <p>Enter the SHA from a git commit into the text box to play a song.</p>
+    <form id="music">
+      <input id="sha" type="text" class="sha" placeholder="Enter SHA" />
+      <button id="play">Play</button>
+    </form>
+  </div>
+  <script src="wad.js"></script>
+  <script src="pullpop.js"></script>
+  <script>
+    var playButton = document.querySelector('#play');
+    var shaInput = document.querySelector('#sha');
+    playButton.addEventListener('click', function(e) {
+      e.preventDefault();
+      if (shaInput.value) {
+        playSong(shaInput.value);
+      }
+    });
+  </script>
+</body>
+</html>
