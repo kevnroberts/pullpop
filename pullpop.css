@@ -3,7 +3,7 @@ html {
   font-family: Verdana, sans-serif;
 }
 
-input, button {
+input, button, select, option {
   font-size: 120%;
 }
 

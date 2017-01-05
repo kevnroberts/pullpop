@@ -10,18 +10,35 @@
     <p>Enter the SHA from a git commit into the text box to play a song.</p>
     <form id="music">
       <input id="sha" type="text" class="sha" placeholder="Enter SHA" />
+      <select id="scale">
+        <option value="major">major</option>
+        <option value="minor">minor</option>
+        <option value="pentatonic">pentatonic</option>
+        <option value="minorpentatonic">minor pentatonic</option>
+      </select>
       <button id="play">Play</button>
+      <button id="bass">Bass</button>
     </form>
   </div>
   <script src="wad.js"></script>
   <script src="pullpop.js"></script>
   <script>
-    var playButton = document.querySelector('#play');
     var shaInput = document.querySelector('#sha');
+    var scaleSelect = document.querySelector('#scale');
+
+    var playButton = document.querySelector('#play');
     playButton.addEventListener('click', function(e) {
       e.preventDefault();
       if (shaInput.value) {
-        playSong(shaInput.value);
+        playSong(shaInput.value, scale.value);
+      }
+    });
+
+    var bassButton = document.querySelector('#bass');
+    bassButton.addEventListener('click', function(e) {
+      e.preventDefault();
+      if (shaInput.value) {
+        playBass(shaInput.value, scale.value);
       }
     });
   </script>
