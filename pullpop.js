@@ -5,9 +5,8 @@
 var MIN_TEMPO = 90;
 var MAX_TEMPO = 210;
 var BEAT_STEP = 1;
-var sha0 = 'bec5d9d67a5e63e9cc5564785e6d3cda0f7b5ac4';
-var sha1 = '0123456789abcdeffedcba987654321001234567';
-var sha2 = '82de163bfcf20803649276af724ee875ca43b91c';
+var sha0 = 'bec5d9d67a5e63e9 cc5564785e6d3cda0f7b5ac4';
+var sha2 = '82de163b fcf20803649276af 724ee875ca43b91c';
 
 var scales = {
   major: {
@@ -120,42 +119,72 @@ function findTempo(sha) {
   return tempo;
 }
 
-function findNextBeat(note) {
+
+function playNotes(noteValues, scale, beat, noteBeats) {
+  var notes = noteValues.split('');
+  var noteBeat = 0;
+  var piano = new Wad(Wad.presets.piano);
+  var beatIndex = 0;
+  notes.forEach(function(note) {
+    piano.play({
+      pitch: scale[note],
+      volume: 1.2,
+      wait: beat * noteBeat
+    });
+
+    noteBeat += noteBeats[beatIndex];
+    beatIndex = beatIndex >= noteBeats.length - 1 ? 0 : beatIndex + 1;
+  });
+}
+
+function playBass(bassValues, scale, beat, noteBeats) {
+  var bassNotes = bassValues.split('');
+  var noteBeat = 0;
+  var bass = new Wad({ source: 'square' });
+  var beatIndex = noteBeats.length - 1;
+
+  for(var i = 0; i < 2; i++) {
+    bassNotes.forEach(function(item) {
+      var note = parseInt(parseInt(item, 16) / 4, 10);
+      bass.play({
+        pitch: scale.bass[note],
+        volume: 0.3,
+        wait: beat * noteBeat,
+        env: {
+          hold: 0.25
+        }
+      });
+
+      noteBeat += noteBeats[beatIndex];
+      beatIndex = beatIndex >= 0 ? noteBeats.length : beatIndex - 1;
+    });
+  }
+}
+
+function calculateBeat(note) {
   return 1 / (parseInt(note, 16) % 4 + 1);
+}
+
+function getBeats(beatValues) {
+  var beatsArr = beatValues.split('');
+  var beats = [];
+  beatsArr.forEach(function(item) {
+    beats.push(calculateBeat(item));
+  });
+
+  return beats;
 }
 
 function playSong(sha, scaleStr) {
   var beat = 60 / findTempo(sha);
-  var notes = sha.split('');
-  var noteBeat = 0;
-  var piano = new Wad(Wad.presets.piano);
-  notes.forEach(function(note, idx) {
-    if (idx % 2) {
-      noteBeat += findNextBeat(noteBeat, note);
-    } else {
-      piano.play({
-        pitch: scales[scaleStr][note],
-        wait: beat * noteBeat
-      });
-    }
-  });
-}
 
-function playBass(sha, scaleStr) {
-  var beat = 60 / findTempo(sha);
-  var bassNotes = sha.substring(0, 8).split('');
-  var noteBeat = 0;
-  var bass = new Wad({ source: 'square' });
-  bassNotes.forEach(function(item) {
-    var note = parseInt(parseInt(item, 16) / 4, 10);
-    bass.play({
-      pitch: scales[scaleStr].bass[note],
-      wait: beat * noteBeat,
-      env: {
-        hold: 0.25
-      }
-    });
+  var beatValues = sha.substring(0, 8);
+  var bassValues = sha.substring(8, 24);
+  var noteValues = sha.substring(24);
+  var scale = scales[scaleStr];
 
-    noteBeat += BEAT_STEP;
-  });
+  var noteBeats = getBeats(beatValues);
+
+  playBass(bassValues, scale, beat, noteBeats);
+  playNotes(noteValues, scale, beat, noteBeats);
 }

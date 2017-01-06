@@ -17,7 +17,6 @@
         <option value="minorpentatonic">minor pentatonic</option>
       </select>
       <button id="play">Play</button>
-      <button id="bass">Bass</button>
     </form>
   </div>
   <script src="wad.js"></script>
@@ -31,14 +30,6 @@
       e.preventDefault();
       if (shaInput.value) {
         playSong(shaInput.value, scale.value);
-      }
-    });
-
-    var bassButton = document.querySelector('#bass');
-    bassButton.addEventListener('click', function(e) {
-      e.preventDefault();
-      if (shaInput.value) {
-        playBass(shaInput.value, scale.value);
       }
     });
   </script>
