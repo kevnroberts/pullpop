@@ -1,7 +1,3 @@
-// bec5d9d67a5e63e9cc5564785e6d3cda0f7b5ac4
-
-// bec5 d9d6 7a5e 63e9 cc55 6478 5e6d 3cda 0f7b 5ac4
-
 var MIN_TEMPO = 90;
 var MAX_TEMPO = 210;
 
@@ -244,10 +240,6 @@ function findTempo(sha) {
   return tempo;
 }
 
-function calculateNextBeat() {
-
-}
-
 function playNotes(noteValues, scale, pan, beat, noteBeats) {
   var notes = noteValues.split('');
   var noteBeat = 0;
@@ -304,6 +296,6 @@ function playSong(sha, scaleStr) {
 
   playClick(beat, noteBeats);
   playNotes(note1Values, scale.high, -0.5, beat, noteBeats);
-  playNotes(note2Values, scale.mid, 0, beat, noteBeats);
-  playNotes(note3Values, scale.low, 0.5, beat, noteBeats)
+  playNotes(note2Values, scale.mid, 0, beat, noteBeats.reverse());
+  playNotes(note3Values, scale.low, 0.5, beat, noteBeats.reverse())
 }
