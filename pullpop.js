@@ -247,6 +247,9 @@ function findTempo(sha) {
   return tempo;
 }
 
+function calculateNextBeat() {
+
+}
 
 function playNotes(noteValues, scale, beat, noteBeats) {
   var notes = noteValues.split('');
@@ -265,37 +268,27 @@ function playNotes(noteValues, scale, beat, noteBeats) {
   });
 }
 
-function playBass(bassValues, scale, beat, noteBeats) {
-  var bassNotes = bassValues.split('');
-  var noteBeat = 0;
-  var bass = new Wad({ source: 'square' });
-  var beatIndex = 0;
-
-  bassNotes.forEach(function(item) {
-    var note = parseInt(parseInt(item, 16) / 4, 10);
-    bass.play({
-      pitch: scale.bass[note],
-      volume: 0.3,
-      wait: beat * noteBeat,
-      env: {
-        hold: 0.125
-      }
-    });
-
-    noteBeat += noteBeats[beatIndex];
-    beatIndex = beatIndex >= noteBeats.length - 1 ? 0 : beatIndex + 1;
-  });
+function playClick(beat, noteBeats) {
+  var click = new Wad(Wad.presets.hiHatClosed);
+  var beatSum = noteBeats.reduce(function(sum, item) { return sum + item; }, 0);
+  for (var i = 0; i < Math.ceil(beatSum); i++) {
+    click.play({ wait: beat * i });
+  }
 }
 
 function calculateBeat(note) {
-  return 1 / (parseInt(note, 16) % 4 + 1);
+  var num = parseInt(note, 16) % 3 * 2;
+  if (!num) num = 1;
+  return 1 / num;
 }
 
-function getBeats(beatValues) {
-  var beatsArr = beatValues.split('');
+function getBeats(sha) {
+  var beatsArr = sha.split('');
   var beats = [];
-  beatsArr.forEach(function(item) {
-    beats.push(calculateBeat(item));
+  beatsArr.forEach(function(item, index) {
+    if (index % 2) {
+      beats.push(calculateBeat(item));
+    }
   });
 
   return beats;
@@ -304,15 +297,14 @@ function getBeats(beatValues) {
 function playSong(sha, scaleStr) {
   var beat = 60 / findTempo(sha);
 
-  var beatValues = sha.substring(0, 8);
   var note1Values = sha.substring(0, 20);
   var note2Values = sha.substring(20);
   var note3Values = sha.substring(10, 30);
   var scale = scales[scaleStr];
 
-  var noteBeats = getBeats(beatValues);
+  var noteBeats = getBeats(sha);
 
-  // playBass(bassValues, scale, beat, noteBeats);
+  playClick(beat, noteBeats);
   playNotes(note1Values, scale.high, beat, noteBeats);
   playNotes(note2Values, scale.mid, beat, noteBeats);
   playNotes(note3Values, scale.low, beat, noteBeats)
