@@ -4,9 +4,6 @@
 
 var MIN_TEMPO = 90;
 var MAX_TEMPO = 210;
-var BEAT_STEP = 1;
-var sha0 = 'bec5d9d67a5e63e9 cc5564785e6d3cda0f7b5ac4';
-var sha2 = '82de163b fcf20803649276af 724ee875ca43b91c';
 
 var scales = {
   major: {
@@ -67,58 +64,58 @@ var scales = {
   },
   minor: {
     high: {
-      '0': 'A4',
-      '1': 'B4',
-      '2': 'C5',
-      '3': 'D5',
-      '4': 'E5',
-      '5': 'F5',
-      '6': 'G5',
-      '7': 'A5',
-      '8': 'B5',
-      '9': 'C6',
-      'a': 'D6',
-      'b': 'E6',
-      'c': 'F6',
-      'd': 'G6',
-      'e': 'A6',
-      'f': 'B6',
+      '0': 'C4',
+      '1': 'D4',
+      '2': 'Eb4',
+      '3': 'F4',
+      '4': 'G4',
+      '5': 'Ab4',
+      '6': 'Bb4',
+      '7': 'C5',
+      '8': 'D5',
+      '9': 'Eb5',
+      'a': 'F5',
+      'b': 'G5',
+      'c': 'Ab5',
+      'd': 'Bb5',
+      'e': 'C6',
+      'f': 'D6',
     },
     mid: {
-      '0': 'A3',
-      '1': 'B3',
-      '2': 'C4',
-      '3': 'D4',
-      '4': 'E4',
-      '5': 'F4',
-      '6': 'G4',
-      '7': 'A4',
-      '8': 'B4',
-      '9': 'C5',
-      'a': 'D5',
-      'b': 'E5',
-      'c': 'F5',
-      'd': 'G5',
-      'e': 'A5',
-      'f': 'B5',
+      '0': 'C3',
+      '1': 'D3',
+      '2': 'Eb3',
+      '3': 'F3',
+      '4': 'G3',
+      '5': 'Ab3',
+      '6': 'Bb3',
+      '7': 'C4',
+      '8': 'D4',
+      '9': 'Eb4',
+      'a': 'F4',
+      'b': 'G4',
+      'c': 'Ab4',
+      'd': 'Bb4',
+      'e': 'C5',
+      'f': 'D5',
     },
     low: {
-      '0': 'A2',
-      '1': 'B2',
-      '2': 'C3',
-      '3': 'D3',
-      '4': 'E3',
-      '5': 'F3',
-      '6': 'G3',
-      '7': 'A3',
-      '8': 'B3',
-      '9': 'C4',
-      'a': 'D4',
-      'b': 'E4',
-      'c': 'F4',
-      'd': 'G4',
-      'e': 'A4',
-      'f': 'B4',
+      '0': 'C2',
+      '1': 'D2',
+      '2': 'Eb2',
+      '3': 'F2',
+      '4': 'G2',
+      '5': 'Ab2',
+      '6': 'Bb2',
+      '7': 'C3',
+      '8': 'D3',
+      '9': 'Eb3',
+      'a': 'F3',
+      'b': 'G3',
+      'c': 'Ab3',
+      'd': 'Bb3',
+      'e': 'C4',
+      'f': 'D4',
     }
   },
   pentatonic: {
@@ -179,58 +176,58 @@ var scales = {
   },
   minorpentatonic: {
     high: {
-      '0': 'A3',
-      '1': 'C4',
-      '2': 'D4',
-      '3': 'E4',
-      '4': 'G4',
-      '5': 'A4',
-      '6': 'C5',
-      '7': 'D5',
-      '8': 'E5',
-      '9': 'G5',
-      'a': 'A5',
-      'b': 'C6',
-      'c': 'D6',
-      'd': 'E6',
-      'e': 'G6',
-      'f': 'A6',
+      '0': 'C4',
+      '1': 'D4',
+      '2': 'Eb4',
+      '3': 'G4',
+      '4': 'Ab4',
+      '5': 'C5',
+      '6': 'D5',
+      '7': 'Eb5',
+      '8': 'G5',
+      '9': 'Ab5',
+      'a': 'C6',
+      'b': 'D6',
+      'c': 'Eb6',
+      'd': 'G6',
+      'e': 'Ab6',
+      'f': 'C7',
     },
     mid: {
-      '0': 'A2',
-      '1': 'C3',
-      '2': 'D3',
-      '3': 'E3',
-      '4': 'G3',
-      '5': 'A3',
-      '6': 'C4',
-      '7': 'D4',
-      '8': 'E4',
-      '9': 'G4',
-      'a': 'A4',
-      'b': 'C5',
-      'c': 'D5',
-      'd': 'E5',
-      'e': 'G5',
-      'f': 'A5',
+      '0': 'C3',
+      '1': 'D3',
+      '2': 'Eb3',
+      '3': 'G3',
+      '4': 'Ab3',
+      '5': 'C4',
+      '6': 'D4',
+      '7': 'Eb4',
+      '8': 'G4',
+      '9': 'Ab4',
+      'a': 'C5',
+      'b': 'D5',
+      'c': 'Eb5',
+      'd': 'G5',
+      'e': 'Ab5',
+      'f': 'C6',
     },
     low: {
-      '0': 'A1',
-      '1': 'C2',
-      '2': 'D2',
-      '3': 'E2',
-      '4': 'G2',
-      '5': 'A2',
-      '6': 'C3',
-      '7': 'D3',
-      '8': 'E3',
-      '9': 'G3',
-      'a': 'A3',
-      'b': 'C4',
-      'c': 'D4',
-      'd': 'E4',
-      'e': 'G4',
-      'f': 'A4',
+      '0': 'C2',
+      '1': 'D2',
+      '2': 'Eb2',
+      '3': 'G2',
+      '4': 'Ab2',
+      '5': 'C3',
+      '6': 'D3',
+      '7': 'Eb3',
+      '8': 'G3',
+      '9': 'Ab3',
+      'a': 'C4',
+      'b': 'D4',
+      'c': 'Eb4',
+      'd': 'G4',
+      'e': 'Ab4',
+      'f': 'C4',
     }
   }
 };
@@ -251,7 +248,7 @@ function calculateNextBeat() {
 
 }
 
-function playNotes(noteValues, scale, beat, noteBeats) {
+function playNotes(noteValues, scale, pan, beat, noteBeats) {
   var notes = noteValues.split('');
   var noteBeat = 0;
   var piano = new Wad(Wad.presets.piano);
@@ -260,7 +257,8 @@ function playNotes(noteValues, scale, beat, noteBeats) {
     piano.play({
       pitch: scale[note],
       volume: 1.2,
-      wait: beat * noteBeat
+      wait: beat * noteBeat,
+      panning: pan,
     });
 
     noteBeat += noteBeats[beatIndex];
@@ -305,7 +303,7 @@ function playSong(sha, scaleStr) {
   var noteBeats = getBeats(sha);
 
   playClick(beat, noteBeats);
-  playNotes(note1Values, scale.high, beat, noteBeats);
-  playNotes(note2Values, scale.mid, beat, noteBeats);
-  playNotes(note3Values, scale.low, beat, noteBeats)
+  playNotes(note1Values, scale.high, -0.5, beat, noteBeats);
+  playNotes(note2Values, scale.mid, 0, beat, noteBeats);
+  playNotes(note3Values, scale.low, 0.5, beat, noteBeats)
 }
